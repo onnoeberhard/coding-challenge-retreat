@@ -1,6 +1,7 @@
 from scoring import Drone, Action, Warehouse, Order, Manager, Score, JudgeSystem
 
 def read_in_file(inputF):
+    """Returns drones, warehouses, grid, orders, number of products"""
     with open(inputF) as f:
         content = f.readlines()
         nLine = content[0].split(" ")
@@ -65,4 +66,4 @@ def read_in_file(inputF):
             Grid[rowOrd][colOrd] = list
             line = line + 1
             
-    return Drones, Warehouses, Grid, Orders
+    return Drones, Warehouses, Grid, Orders, P
