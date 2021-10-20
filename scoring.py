@@ -241,9 +241,10 @@ class JudgeSystem(object):
         manager.start(Drones, Grid, Warehouses, Orders)
         self.score = table.score
 
-listResults =[]
-listResults.append(JudgeSystem("input_example", "submission_example").score)
-print("Score: ",sum(listResults))
+if __name__ == "__main__":
+    listResults =[]
+    listResults.append(JudgeSystem("input_example", "submission_example").score)
+    print("Score: ",sum(listResults))
 
 
 

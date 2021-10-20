@@ -1,3 +1,5 @@
+from scoring import Drone, Action, Warehouse, Order, Manager, Score, JudgeSystem
+
 def read_in_file(inputF):
     with open(inputF) as f:
         content = f.readlines()
