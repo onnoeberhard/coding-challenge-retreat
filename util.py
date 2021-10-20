@@ -1,5 +1,41 @@
 from scoring import Drone, Action, Warehouse, Order, Manager, Score, JudgeSystem
 
+def step(action_strings, Drones, Warehouses, Grid, Orders):
+    """Executes one time steps of the simulation and return updated objects
+
+    Args:
+        action_strings (List[str]): List of Command strings, one entry per line
+        Drones (List[Drone]): List of drones in the simulation
+        Warehouses (List[Warehouse]): List of warehouses in the simulation
+        Grid (List[List[List[object]]]): Current Grid of the simulation
+        Orders (List[Order]): List of Orders of the simulation
+
+    Returns:
+        Tuple(List[Drone], List[Warehouse], List[List[List[object]]], List[Order]): Update Object Lists: Drones, Warehouses, Grid, Orders 
+    """
+    for action_string in action_strings:
+        if (len(action_string) > 3):
+            action = Action(int(action_string[0]), action_string[1], int(action_string[2]), int(action_string[3]), int(action_string[4]))
+        else:
+            action = Action(int(action_string[0]), action_string[1], int(action_string[2]))
+        drone = Drones[int(action_string[0])]
+        drone.addAction(action)
+        Drones[int(action_string[0])] = drone
+        
+    DronesNotU = []
+    for drone in Drones:
+        if(drone.NumOfActions>0):
+            if (drone.isBusy() == False):
+                if (drone.getNextActionType()=="U"):
+                    Grid, Warehouses, Orders = drone.act(Grid,Warehouses,Orders)
+                else:
+                    DronesNotU.append(drone.id)
+    for y in range(len(Drones)):
+        if (Drones[y].id in DronesNotU):
+            Grid, Warehouses, Orders = Drones[y].act(Grid,Warehouses,Orders)
+            
+    return Drones, Warehouses, Grid, Orders 
+
 def read_in_file(inputF):
     with open(inputF) as f:
         content = f.readlines()
@@ -64,5 +100,8 @@ def read_in_file(inputF):
             list.append(ord)
             Grid[rowOrd][colOrd] = list
             line = line + 1
+
+    for drone in Drones:
+            drone.initializePayload(P)
             
     return Drones, Warehouses, Grid, Orders
