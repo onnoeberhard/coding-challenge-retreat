@@ -4,7 +4,7 @@ from math import sqrt
 def order_time(order, drones, warehouses, P, product_weights, drone_capacity):
     # Divy up order into deliveries of acceptable weight
     deliveries = [[0] * P]
-    for i in range(P):
+    for i in np.argsort(np.array(product_weights)):
         for k in range(order.itemsbytype[i]):
             if sum(deliveries[-1][j] * product_weights[j] for j in range(P)) + product_weights[i] >= drone_capacity:
                 deliveries.append([0] * P)
