@@ -4,7 +4,7 @@ def step(action_strings, Drones, Warehouses, Grid, Orders):
     """Executes one time steps of the simulation and return updated objects
 
     Args:
-        action_strings (List[str]): List of Command strings, one entry per line
+        action_strings (List[str]): List of Command strings, one entry per line, letters sepperated by one space
         Drones (List[Drone]): List of drones in the simulation
         Warehouses (List[Warehouse]): List of warehouses in the simulation
         Grid (List[List[List[object]]]): Current Grid of the simulation
@@ -14,6 +14,7 @@ def step(action_strings, Drones, Warehouses, Grid, Orders):
         Tuple(List[Drone], List[Warehouse], List[List[List[object]]], List[Order]): Update Object Lists: Drones, Warehouses, Grid, Orders 
     """
     for action_string in action_strings:
+        action_string = action_string.split(" ")
         if (len(action_string) > 3):
             action = Action(int(action_string[0]), action_string[1], int(action_string[2]), int(action_string[3]), int(action_string[4]))
         else:
