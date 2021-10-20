@@ -37,6 +37,7 @@ def step(action_strings, Drones, Warehouses, Grid, Orders):
     return Drones, Warehouses, Grid, Orders 
 
 def read_in_file(inputF):
+    """Returns drones, warehouses, grid, orders, number of products, weights of products, drone capacity"""
     with open(inputF) as f:
         content = f.readlines()
         nLine = content[0].split(" ")
@@ -50,7 +51,7 @@ def read_in_file(inputF):
         DoS = int(nLine[3])
         MloD = int(nLine[4])
         P = int(content[1])
-        productsWeights = content[2].split(" ")
+        productsWeights = [int(x) for x in content[2].split(" ")]
         W = int(content[3])
         line = 4
         Warehouses = []
@@ -104,4 +105,4 @@ def read_in_file(inputF):
     for drone in Drones:
             drone.initializePayload(P)
             
-    return Drones, Warehouses, Grid, Orders
+    return Drones, Warehouses, Grid, Orders, P, productsWeights, MloD
